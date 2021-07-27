@@ -1,8 +1,13 @@
+
 front-build:
   stage: build
   tags:
     - docker
   image: node:14.17.3
+  cache:
+    key: node_modules
+    paths:
+      - /client-angular/node_modules
   before_script:
     - cd client-angular
     - npm install
@@ -13,5 +18,17 @@ front-test:
   tags:
     - docker
   stage: test
+  before_script:
+    - cd client-angular
+    - npm install
+  script:
+    - npm test
+    
+deploy-dev:
+  tags:
+    - docker
+  stage: test
   script: 
-    - echo "Test"
+    - echo "Deploy"
+  only:
+    - develop
