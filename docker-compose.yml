@@ -1,0 +1,5 @@
+services:  
+  assistanthub:
+    build: ./client-angular
+    ports:
+      - "80:80"

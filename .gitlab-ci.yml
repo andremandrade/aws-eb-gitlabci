@@ -1,0 +1,15 @@
+
+
+front-build:
+  stage: build
+  image: node:14.17.3
+  before_script:
+    - cd client-angular
+    - npm install
+  script:
+    - npm run build
+
+front-test:
+  state: test
+  script: 
+    - echo "Test"
