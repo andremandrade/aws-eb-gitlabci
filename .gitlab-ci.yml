@@ -1,6 +1,7 @@
-
 front-build:
   stage: build
+  tags:
+    - linux
   image: node:14.17.3
   before_script:
     - cd client-angular
