@@ -1,5 +1,4 @@
 
-
 front-build:
   stage: build
   image: node:14.17.3
@@ -10,6 +9,6 @@ front-build:
     - npm run build
 
 front-test:
-  state: test
+  stage: test
   script: 
     - echo "Test"
