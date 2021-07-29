@@ -42,7 +42,7 @@ deploy-dev:
     paths:
       - /root/.pyenv/
       - /root/.ebcli-virtual-env/
-      - /root/.bash_profile
+      - /root/.profile
 
   before_script:
     - sh eb/install-eb.sh
