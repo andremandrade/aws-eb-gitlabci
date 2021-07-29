@@ -40,11 +40,12 @@ deploy-dev:
   cache:
     key: eb_installation
     paths:
-      - /root/.pyenv/
-      - /root/.ebcli-virtual-env/
-      - /root/.profile
+      - eb/.pyenv/
+      - eb/.ebcli-virtual-env/
+      - eb/.profile
 
   before_script:
+    - sh eb/use-cache.sh
     - sh eb/install-eb.sh
     - source /root/.profile
     - eb --version

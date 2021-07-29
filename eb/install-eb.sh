@@ -8,8 +8,11 @@ then
     ./aws-elastic-beanstalk-cli-setup/scripts/bundled_installer
     echo 'export PATH=/root/.pyenv/versions/3.7.2/bin:$PATH' >> /root/.profile
     echo 'export PATH="/root/.ebcli-virtual-env/executables:$PATH"' >> ~/.profile
-    echo "Test EB CLI installation:"
+    #echo "Test EB CLI installation:"
     #eb --version
+    cp /root/.pyenv eb/.pyenv
+    cp /root/.ebcli-virtual-env eb/.ebcli-virtual-env
+    cp /root/.profile eb/.profile
     exit
 fi
 
