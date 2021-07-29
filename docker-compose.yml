@@ -3,3 +3,5 @@ services:
     build: ./client-angular
     ports:
       - "80:80"
+    # volumes:
+    #   - /var/log/nginx/healthd:/var/log/nginx/healthd
