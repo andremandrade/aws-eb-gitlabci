@@ -53,9 +53,9 @@ deploy:
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - mkdir ~/.aws/
     - touch ~/.aws/config
+  script: 
     - echo $aws_access_key_id
     - echo $aws_secret_access_key
-  script: 
     - eb status
   only:
     - develop
