@@ -37,9 +37,16 @@ deploy-dev:
   tags:
     - docker
   image: python:3.9.6
+  cache:
+    key: eb_installation
+    paths:
+      - /root/.pyenv/
+      - /root/.ebcli-virtual-env/
+      - /root/.bash_profile
+
   before_script:
     - sh eb/install-eb.sh
-    - source ~/.profile
+    - source /root/.profile
     - eb --version
   script: 
     - echo "SCRIPT - Deploy on dev"
