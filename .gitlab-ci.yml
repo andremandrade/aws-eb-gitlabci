@@ -25,10 +25,13 @@ front-test:
     - echo "Test"
     
 deploy-dev:
+  stage: deploy
   tags:
     - docker
-  stage: test
+  image: python:3.9.6
+  before_script:
+    - sh eb/install-eb.sh
   script: 
-    - echo "Deploy"
+    - echo "SCRIPT - Deploy on dev"
   only:
     - develop
