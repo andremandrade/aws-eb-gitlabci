@@ -1,5 +1,5 @@
 branch-defaults:
-  develop:
+  dev:
     environment: eb-poc-dev
   test:
     environment: eb-poc-test
