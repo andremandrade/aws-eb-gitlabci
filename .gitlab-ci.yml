@@ -13,7 +13,7 @@ front-build:
   script:
     - npm run build
   except:
-    - develop
+    - dev
     - test
 
 front-test:
@@ -31,7 +31,7 @@ front-test:
   script:
     - echo "Test"
   except:
-    - develop
+    - dev
     - test
     
 deploy:
@@ -62,5 +62,5 @@ deploy:
     - cat ~/.aws/config
     - eb status
   only:
-    - develop
+    - dev
     - test
