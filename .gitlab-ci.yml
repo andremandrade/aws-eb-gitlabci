@@ -46,9 +46,9 @@ deploy-dev:
 
   before_script:
     - sh eb/use-cache.sh
+    - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - sh eb/install-eb.sh
-    - source /root/.profile
-    - eb --version
+    - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
   script: 
     - echo "SCRIPT - Deploy on dev"
   only:
