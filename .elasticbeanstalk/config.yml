@@ -1,12 +1,14 @@
 branch-defaults:
-  b1:
-    environment: assistanthub-dev
+  develop:
+    environment: eb-poc-dev
+  test:
+    environment: eb-poc-test
 environment-defaults:
-  assistanthub-dev:
+  eb-poc-dev:
     branch: null
     repository: null
 global:
-  application_name: assistanthub
+  application_name: eb-poc
   default_ec2_keyname: aws-eb
   default_platform: Docker running on 64bit Amazon Linux 2
   default_region: us-west-2

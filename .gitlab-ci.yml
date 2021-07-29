@@ -32,7 +32,7 @@ front-test:
   except:
     - develop
     
-deploy-dev:
+deploy:
   stage: deploy
   tags:
     - docker
@@ -49,7 +49,11 @@ deploy-dev:
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - sh eb/install-eb.sh
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
+    - touch ~/.aws/config
+    - echo $aws_access_key_id
+    - echo $aws_secret_access_key
   script: 
-    - echo "SCRIPT - Deploy on dev"
+    - eb
   only:
     - develop
+    - test
