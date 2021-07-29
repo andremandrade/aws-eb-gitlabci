@@ -10,8 +10,8 @@ then
     echo 'export PATH="/root/.ebcli-virtual-env/executables:$PATH"' >> ~/.profile
     #echo "Test EB CLI installation:"
     #eb --version
-    cp /root/.pyenv eb/.pyenv
-    cp /root/.ebcli-virtual-env eb/.ebcli-virtual-env
+    cp -r /root/.pyenv eb/.pyenv
+    cp -r /root/.ebcli-virtual-env eb/.ebcli-virtual-env
     cp /root/.profile eb/.profile
     exit
 fi
