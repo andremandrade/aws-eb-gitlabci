@@ -12,6 +12,8 @@ front-build:
     - npm install
   script:
     - npm run build
+  except:
+    - develop
 
 front-test:
   stage: test
@@ -27,6 +29,8 @@ front-test:
     - npm install
   script:
     - echo "Test"
+  except:
+    - develop
     
 deploy-dev:
   stage: deploy
@@ -35,6 +39,8 @@ deploy-dev:
   image: python:3.9.6
   before_script:
     - sh eb/install-eb.sh
+    - source ~/.profile
+    - eb --version
   script: 
     - echo "SCRIPT - Deploy on dev"
   only:
