@@ -3,7 +3,7 @@ if [ -d eb/.pyenv ]; then
     cp -r eb/.pyenv /root/.pyenv 
     cp -r eb/.ebcli-virtual-env /root/.ebcli-virtual-env
     cp eb/.profile /root/.profile 
-    source /root/.profile
+    /bin/sh /root/.profile
     eb --version
 else
     echo "EB installation is NOT cached"
