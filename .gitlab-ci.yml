@@ -60,6 +60,8 @@ deploy:
     - echo 'aws_access_key_id = '$aws_access_key_id >> ~/.aws/config
     - echo 'aws_secret_access_key = '$aws_secret_access_key >> ~/.aws/config
     - cat ~/.aws/config
+    - echo $CI_COMMIT_REF_NAME
+    - eb use eb-poc-test
     - eb status
   only:
     - develop
