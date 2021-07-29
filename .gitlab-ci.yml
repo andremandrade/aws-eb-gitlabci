@@ -14,6 +14,7 @@ front-build:
     - npm run build
   except:
     - develop
+    - test
 
 front-test:
   stage: test
@@ -31,8 +32,9 @@ front-test:
     - echo "Test"
   except:
     - develop
+    - test
     
-deploy-dev:
+deploy:
   stage: deploy
   tags:
     - docker
@@ -49,7 +51,17 @@ deploy-dev:
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - sh eb/install-eb.sh
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
+    - mkdir ~/.aws/
+    - touch ~/.aws/config
   script: 
-    - echo "SCRIPT - Deploy on dev"
+    - echo $aws_access_key_id
+    - echo $aws_secret_access_key
+    - echo "[profile eb-cli]" >> ~/.aws/config
+    - echo 'aws_access_key_id = '$aws_access_key_id >> ~/.aws/config
+    - echo 'aws_secret_access_key = '$aws_secret_access_key >> ~/.aws/config
+    - cat ~/.aws/config
+    - eb use eb-poc-$CI_COMMIT_REF_NAME
+    - eb status
   only:
     - develop
+    - test
