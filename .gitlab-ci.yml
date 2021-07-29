@@ -14,6 +14,7 @@ front-build:
     - npm run build
   except:
     - develop
+    - test
 
 front-test:
   stage: test
@@ -31,6 +32,7 @@ front-test:
     - echo "Test"
   except:
     - develop
+    - test
     
 deploy:
   stage: deploy
@@ -49,11 +51,12 @@ deploy:
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - sh eb/install-eb.sh
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
+    - mkdir ~/.aws/
     - touch ~/.aws/config
     - echo $aws_access_key_id
     - echo $aws_secret_access_key
   script: 
-    - eb
+    - eb status
   only:
     - develop
     - test
