@@ -9,7 +9,7 @@ then
     echo 'export PATH=/root/.pyenv/versions/3.7.2/bin:$PATH' >> /root/.profile
     echo 'export PATH="/root/.ebcli-virtual-env/executables:$PATH"' >> ~/.profile
     echo "Test EB CLI installation:"
-    eb --version
+    #eb --version
     exit
 fi
 
