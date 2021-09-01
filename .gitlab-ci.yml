@@ -48,7 +48,7 @@ deploy:
 
   before_script:
     - sh eb/use-cache.sh
-    - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
+    - if command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - sh eb/install-eb.sh
     - if ! command -v eb > /dev/null; then source /root/.profile && eb --version ; fi
     - mkdir ~/.aws/
