@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client-angular-dev-v2';
+  title = 'EB Devop Test - v3';
 }
