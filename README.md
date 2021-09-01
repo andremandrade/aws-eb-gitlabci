@@ -7,12 +7,13 @@
 # docker run --rm -it -v virtushub-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest register
 # docker run -d --name virtushub-runner --restart always -v /var/run/docker.sock:/var/run/docker.sock -v virtushub-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest
 ```
-
+In your Gitlab project, go to **Settings >> CI/CD >> Runners**, and verify if your runner is listed as **Available specific runners**
 ## Setup Elasctic Beanstalk for your project
 
 #### Pre-requirements
 - You need Linux environment (theses steps were tested only in Linux Debian-based)
 - Install AWS CLI and setup your credentials (run ```cat ~/.aws/credentials``` to verify if your credentials are setup)
+- Copy ```eb``` folder and ```.gitlab-ci.yml``` from this project to your project
 
 ### Install EB CLI
 Run:
@@ -92,9 +93,9 @@ git add .elasticbeanstalk/
 Edit the line 62 of ```.gitlab-ci.yml``` file using your application name instead of ```sample-eb```
 
 ```
-    - eb use sample-eb-$CI_COMMIT_REF_NAME
+ line 62|   - eb use sample-eb-$CI_COMMIT_REF_NAME
 
-    # Change to - eb use myappname-$CI_COMMIT_REF_NAME
+# Change to - eb use myappname-$CI_COMMIT_REF_NAME
 ```
 
 Add ```.gitlab-ci.yml``` to git tracking 
@@ -105,5 +106,19 @@ Apply any change in your code that allow you verify if a new version was deploye
 
 Commit and push to the ```dev``` remote branch.
 
+Verify the CI/CD jobs execution in your Gitlab project.
+It the job had succeed, access the application using the same previous URL and verify your new version is deployed.
+
+### Create the test environment related to the test branch
+
+From the dev branch, checkout the test branch
+```
+git checkout -b test
+```
+Create the test EB environment
+```
+eb create sample-eb-test -i t2.medium -c sample-eb-test
+```
+Add, commit and push the ```.elasticbeanstalk``` changes.
 Verify the CI/CD jobs execution in your Gitlab project.
 It the job had succeed, access the application using the same previous URL and verify your new version is deployed.
