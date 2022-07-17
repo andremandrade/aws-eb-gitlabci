@@ -3,19 +3,20 @@
 ## Setup your Git Lab Runner
 
 ```
-# docker volume create virtushub-runner-config
-# docker run --rm -it -v virtushub-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest register
-# docker run -d --name virtushub-runner --restart always -v /var/run/docker.sock:/var/run/docker.sock -v virtushub-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest
+# docker volume create my-runner-config
+# docker run --rm -it -v my-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest register
+# docker run -d --name my-runner --restart always -v /var/run/docker.sock:/var/run/docker.sock -v my-runner-config:/etc/gitlab-runner gitlab/gitlab-runner:latest
 ```
 In your Gitlab project, go to **Settings >> CI/CD >> Runners**, and verify if your runner is listed as **Available specific runners**
+
 ## Setup Elasctic Beanstalk for your project
 
-#### Pre-requirements
+### Pre-requirements & Environment Setup
 - You need Linux environment (theses steps were tested only in Linux Debian-based)
 - Install AWS CLI and setup your credentials (run ```cat ~/.aws/credentials``` to verify if your credentials are setup)
 - Copy ```eb``` folder and ```.gitlab-ci.yml``` from this project to your project
 
-### Install EB CLI
+#### Install EB CLI
 Run:
 ```
 # sh eb/install-eb.sh
@@ -80,8 +81,7 @@ In your Gitlab project, got to ```Settings >> CI/CD >> Variables``` and add the 
 - aws_access_key_id
 - aws_secret_access_key
 
-For the first tests, you can create as NOT PROTECTED.
-When it´s working, it´s recommended you invadate the your test credentials, create new ones and update the variables setting as PROTECTED (in this case, they only work for protected branches)
+For the first tests, you can create as NOT PROTECTED, if you do that, when it´s working, it´s recommended you invalidate the test credentials, create new ones and update the variables setting as PROTECTED (in this case, they only work for protected branches)
 
 #### Setup CI/CD in the project files
 
@@ -122,3 +122,25 @@ eb create sample-eb-test -i t2.medium -c sample-eb-test
 Add, commit and push the ```.elasticbeanstalk``` changes.
 Verify the CI/CD jobs execution in your Gitlab project.
 It the job had succeed, access the application using the same previous URL and verify your new version is deployed.
+
+### Multiple environment setups
+
+To have any new environment (e.g.: `stage`), you need:
+ 1. Create the new environtment branch: `git checkout -b stage`
+ 2. Update the `/.gilab-ci.yml` adding the branch `stage` to the `only` attribute of the `deploy` job:
+```
+deploy:
+  stage: deploy
+  tags:
+    - docker
+  image: python:3.9.6
+  ...
+  only:
+    - dev
+    - test
+    - stage
+```
+ 3. Create the new EB env: `eb create myapp-stage -i t2.medium -c myapp-stage`
+ 4. Add, commit and push the ```.elasticbeanstalk``` changes.
+
+The CI pipeline should automatically deploy the application in the `stage` environment for every new push or merge on the `stage` branch.
