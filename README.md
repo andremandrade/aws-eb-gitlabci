@@ -1,4 +1,4 @@
-# Sample Elastic Beanstalk CI/CD
+# CI/CD for Elastic Beanstalk app using Gitlab CI
 
 ## Setup your Git Lab Runner
 
